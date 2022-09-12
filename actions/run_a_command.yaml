@@ -1,0 +1,28 @@
+---
+name: run_a_command
+# pack
+description: "run a command"
+enabled: true
+
+runner_type: orquesta
+entry_point: workflows/run_a_command/main.yaml
+
+parameters:
+  message:
+    type: string
+    required: true
+    secret: false
+    default: "Hello World"
+    description: "simple message"
+  
+  my_meta_secret:
+    type: string
+    required: true
+    secret: true 
+    default: "{{st2kv.system.b | decrypt_kv}}"
+    description: "a secret"
+  
+  timeout:
+    type: integer
+    default: 3600
+    

@@ -1,0 +1,14 @@
+---
+name: action_run
+# pack
+description: run an action 
+enabled: true
+
+runner_type: orquesta
+entry_point: workflows/action_run.yaml
+
+parameters:
+  greetings:
+    type: string
+    default: "Hello World"
+    required: true

@@ -1,0 +1,32 @@
+---
+version: '1.0'
+input:
+  - payload
+  - a_message
+
+vars:
+  - hostname: 'initialHostName'
+  - method: 'initialMethod'
+tasks:
+  start:
+    action: core.local
+    input:
+      cmd: "echo 'action start'"
+    next:
+      - when: "{{ ctx().payload.hostname is defined }}"
+        do:
+          - task1
+        publish:
+          - hostname: "{{ ctx().payload.hostname }}"
+          - method: "host"
+      - when: "{{ ctx().payload.client is defined }}"
+        do:
+          - task1
+        publish:
+          - client: "{{ ctx().payload.client }}"
+          - method: "client"
+  task1:
+    action: core.local
+    input:
+      # cmd: "echo 'this is a test' <% ctx().payload.hostname %> "
+      cmd: "echo '{% if ctx().payload.hostname == 'MyHost' %} {{ ctx().payload.client }} {% elif ctx().payload.hostname == 'OtherHost' %} {{ 'hello host' }} {% endif %}' "

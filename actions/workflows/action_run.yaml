@@ -1,0 +1,23 @@
+---
+version: 1.0
+description: greetings
+
+input:
+- greetings
+
+vars:
+- temp: 'nil'
+- status: 'nil'
+
+output:
+- my_output: <% ctx().status %>
+
+tasks:
+  send_greetings:
+    action: g_test.hello_world
+    input:
+      my_message: <% ctx().greetings %>
+    next: 
+      - when: <% succeeded() %> 
+        publish:
+          - status: "[Status] pass send_greetings"

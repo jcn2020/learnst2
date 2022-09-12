@@ -1,0 +1,79 @@
+---
+version: 1.0
+description: check and install (if needed) action
+
+input:
+  - package_object
+  - action_name
+  - user_cred
+
+vars:
+  - package_ref_name: <% ctx().package_object.name %>
+  - action_results:: 'nil'
+  - auth_token: 'nil'
+
+
+output:
+  - task_results: <% ctx().action_result %> 
+
+
+tasks:
+
+  get_token:
+    action: core.http
+    input:
+      url: "https://20.109.5.152/auth/v1/tokens"
+      headers: { "Accept": "application/json", "Authorization": "Basic <% ctx().user_cred %>" }
+      verify_ssl_cert: false
+      method: POST  
+    next: 
+      - when: <% succeeded() and task(get_token).result.status_code = 201 %>
+        publish:
+          - auth_token: <% task(get_token).result.body.token %>
+          - action_result: <% task(get_token).result %>
+        do: 
+          - task_check_action
+      - when: <% failed() %>
+        publish: 
+          - action_result: <% task(get_token).result %> 
+
+  task_check_action: 
+    action: core.local
+    input: 
+      cmd: "st2 action list -t <% ctx().auth_token %> -p <% ctx().package_ref_name %> -j " 
+    next:
+      - when: <% succeeded() and ( task(task_check_action).result.stdout.where($.ref =~ ".*ctx().action_name").len() = 0 ) %>
+        publish: 
+          - action_result: <% task(task_check_action).result %>
+        do: 
+          - refresh_pack
+      - when: <% succeeded() and ( task(task_check_action).result.stdout.where($.ref =~ ".*ctx().action_name").len() > 0 ) %> 
+        publish:
+          - action_result: <% task(task_check_action).result %>
+        do: 
+          - run_action
+
+      - when: <% failed() %> 
+        publish: 
+          - action_result: <% task(task_check_action).result %>
+
+  run_action:
+    action: core.local 
+    input:
+      cmd: "st2 run -t <% ctx().auth_token %> <% ctx().package_object.name %>.<% ctx().action_name %> "
+    next: 
+      - when: <% succeeded() %> 
+        publish:  
+          - action_result: <% task(run_action).result %> 
+    
+
+  refresh_pack:
+    action: core.local
+    input:
+      cmd: "st2 pack install -t <% ctx().auth_token %> <% ctx().package_object.location %>"
+    next:
+      - when: <% succeeded() %> 
+        publish:
+          - action_result:: <% task(refresh_pack).result %>
+        do: 
+          - run_action

@@ -1,0 +1,10 @@
+---
+name: greet.concurrency
+pack: learnst2
+description: Limits the concurrent executions of the greet action.
+enabled: true
+resource_ref: learn_stackstorm.greet
+policy_type: action.concurrency
+parameters:
+    action: cancel # if more than threshold, will cancel
+    threshold: 1

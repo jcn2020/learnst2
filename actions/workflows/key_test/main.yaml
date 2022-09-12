@@ -1,0 +1,120 @@
+---
+version: 1.0
+description: workflow 
+
+input:
+  - git_packs
+  - key_name
+  - user_cred
+  - target_cred
+  - cred_expected_value
+  - api_key
+  - executionid: <% ctx(st2).action_execution_id %>
+
+vars: 
+  - auth_token: 'nil'
+  - action_result: 'nil'
+  - status: 'nil'
+  - pack_ref_name:
+      - "g_test"
+  - msg: "Hello Test"
+
+
+output:
+  - myResult: <% ctx().action_result %>
+  - mySource: <% ctx().git_packs %> 
+  - myStatus: <% ctx().status %>
+
+tasks: 
+  log_execution_id:
+    action: core.local
+    input:
+      cmd: >
+        echo "logging execution_id"
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - action_result:  "execution_id: <% ctx().executionid %>"
+          - status: "[Passed] log_execution_id"
+        do:
+          - get_token
+          - post_datadog_event
+
+      - when: <% failed() %>
+        publish: 
+          - action_result: "execution_id: 00000"
+          - status: "[Failed] log_execution_id"
+        do: 
+          - post_datadog_event
+
+
+  get_token:
+    action: core.http
+    input:
+      url: "https://20.109.5.152/auth/v1/tokens"
+      headers: { "Accept": "application/json", "Authorization": "Basic <% ctx().user_cred %>" }
+      verify_ssl_cert: false
+      method: POST  
+    next: 
+      - when: <% succeeded() and task(get_token).result.status_code = 201 %>
+        publish:
+          - auth_token: <% task(get_token).result.body.token %>
+          - action_result: <% task(get_token).result %>
+        do: 
+          - get_key  
+          - post_datadog_event
+      - when: <% failed() %>
+        publish: 
+          - action_result: <% task(get_token).result %> 
+        do: 
+          - post_datadog_event
+      
+  get_key:
+    action: core.local
+    input:
+      # cmd: "st2 login st2admin -p ChangeMe > /dev/null && st2 key list  -d -j "
+      cmd: "st2 key list -t <% ctx().auth_token %> -d -j "
+      # cmd: <% st2 key list --api-key ctx().auth_token -d -j %>
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - action_result: <% task(get_key).result.stdout.where($.name =~ regex(ctx().key_name)).select([$.name, $.value]) %>
+
+  install_pack:
+    action: packs.install
+    input:  
+      packs: "<% ctx().git_packs %>"
+    next:
+      - when: <% succeeded() %> 
+        publish:
+          - status: "[status] pass install_pack"
+          - action_result: <% task(install_pack).result.output %>
+        do: 
+          - run_action
+          - post_datadog_event
+
+
+  run_action:
+    action: g_test.hello_world
+    input: 
+      my_message: <% ctx().msg %> 
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          - status: "[status] pass run_action"
+        do:
+          - post_datadog_event
+          # - clean_up
+          # - list_packs
+      - when: <% failed() %> 
+        publish:
+          - status: "[status] failed run_action"
+        do: 
+          - post_datadog_event
+        # do:
+          # - clean_up
+
+  post_datadog_event:
+    action: core.echo
+    input:
+      message: "Post datadog result"

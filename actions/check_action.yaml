@@ -1,0 +1,27 @@
+---
+name: check_action
+# pack: learnst2
+description: check for action - if not exist - install the package
+enabled: true
+
+runner_type: orquesta
+entry_point: workflows/check_action/main.yaml
+
+parameters:
+  package_object:
+    type: object
+    description: package name and location
+    default:
+      "name": learnst2
+      "location": "git@github.com:jcn2020/learnst2"
+
+  action_name:
+    type: "string"
+    description: "action name"
+    default: "say_hello"
+
+  user_cred:
+    type: "string"
+    description: "user credential "
+    default: "{{ st2kv.system.user_cred | decrypt_kv }}" 
+    secret: true

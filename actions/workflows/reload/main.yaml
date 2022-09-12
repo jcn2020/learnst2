@@ -1,0 +1,18 @@
+---
+description: simple reload
+
+vars:
+  - results: 'nil'
+
+output:
+  - reload_info: <% ctx().results.stdout %>
+
+tasks:
+  reload_task: 
+    action: core.local
+    input: 
+      cmd: "st2ctl reload --register-all "
+    next:
+      - when: <% succeeded() %> 
+        publish:
+          - results: <% task(reload_task).result %>

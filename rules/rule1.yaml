@@ -1,0 +1,12 @@
+---
+name: on_hello_event1
+pack: learnst2
+description: Sample rule firing on hello_st2.event1.
+enabled: true
+trigger:
+    type: learnst2.event1
+action:
+    ref: learnst2.say_hello
+    parameters:
+        greetings: "Hello darkness my old friends"
+

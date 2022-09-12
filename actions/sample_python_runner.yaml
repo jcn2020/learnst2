@@ -1,0 +1,15 @@
+---
+name: sample_python_runner
+# pack: learnst2
+description: simple python runner 
+enabled: true
+
+runner_type: "python-script"
+entry_point: /opt/stackstorm/packs/learnst2/artifacts/scripts/sample_python_runner.py
+
+parameters:
+  name:
+    type: "string"
+    # required: false
+    # default: "Me"
+    # position: 0

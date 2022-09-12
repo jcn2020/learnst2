@@ -1,0 +1,14 @@
+---
+name: r01_interval_timer
+# pack: learnst2
+description: run an action every delta minutes interval
+enabled: false
+
+trigger: 
+  type: "core.st2.IntervalTimer"
+  parameters:
+    unit: "minutes"
+    delta: 5
+action: 
+  ref: "learnst2.say_hello"
+  

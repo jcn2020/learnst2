@@ -1,0 +1,55 @@
+---
+version: 1.0
+description: "workflow" 
+
+input:
+  - message
+  - my_meta_secret
+  # - myvar: <% st2kv.system.b | decrypt_kv %>
+
+vars:
+  - execution_id: <% ctx(st2).action_execution_id %>
+  # - myvar: "{{st2kv.system.b | decrypt_kv}}"
+  # - myvar: <% ctx().my_meta_secret %> 
+
+output:
+  - my_status: "<% ctx().status %>"
+
+tasks:
+  say_hello:
+    action: core.local
+    input:
+      cmd: >
+        echo 'logging execution id' ; 
+    next:
+      - when: <% succeeded() %> 
+        publish:
+          - status: "[passed] say_hello"
+
+        do: 
+          - get_secret
+
+  get_secret:
+    action: core.local
+    # action: core.echo
+    input:
+      cmd: "echo <% ctx().my_meta_secret %> "
+      # message: "{{st2kv.system.b | decrypt_kv}}"
+
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          - status: <% list( ctx().status, "[passed] get_secret") %>
+        do: 
+          - clean_secret
+
+  clean_secret:
+    action: core.local
+    input:
+      cmd: "echo clean secret"
+
+    next:  
+      - when: <% succeeded() %> 
+        publish:
+          - status: <% ctx().status.append( "[passed] clean_secret" ) %>
+        do: noop

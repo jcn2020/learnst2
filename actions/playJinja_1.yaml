@@ -1,0 +1,19 @@
+---
+name: playJinja_1
+description: practice using playJinja
+enabled: true
+
+runner_type: orquesta
+entry_point: workflows/playJinja_1/main.yaml
+
+parameters:
+  a_message:
+    type: string
+    default: "...hello ..."
+    required: true
+  payload:
+    type: object
+    required: true
+    default:
+      "hostname": "MyHost"
+      "client" : "Myclient"

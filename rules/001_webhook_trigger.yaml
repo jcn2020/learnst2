@@ -1,0 +1,21 @@
+---
+name: 001_webhook_trigger
+pack: learnst2
+description: "simple rule"
+enabled: true
+
+trigger:
+  type: "core.st2.webhook"
+  parameters:
+    url: "sample"
+
+criteria:
+  trigger.body.name:
+    pattern: "st2" 
+    type: "equals"
+
+action:
+  ref: "core.local"
+  parameters:
+    cmd: "echo 'what I can do'"
+

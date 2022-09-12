@@ -1,0 +1,53 @@
+---
+name: vars_play
+# pack
+description: vars from application_context, config_context
+enabled: true
+entry_point: workflows/vars_play/main.yaml
+runner_type: orquesta
+
+output_schema:
+  myName:
+    type: string
+  myLocation:
+    type: boolean
+    required: true
+  myNothing:
+    type: string
+    required: true
+
+parameters:
+  name:
+    type: "string"
+    required: true
+    secret: false
+    default: "Me"
+    position: 0
+    
+  location:
+    type: "string"
+    required: true
+    secret: false
+    default: "SSC"
+
+  levels:
+    type: array
+    default: ["prod","test","stage"]
+
+  confirmation:
+    type: boolean
+    default: true
+
+  dayOfWeek:
+    type: string
+    enum:
+      - Mon 
+      - Tue 
+      - Wed 
+      - Thu 
+      - Fri 
+      - Sat 
+      - Sun
+    default: "Sun"
+
+  

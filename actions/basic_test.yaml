@@ -1,0 +1,76 @@
+---
+name: basic_test
+# pack: learnst2
+description: run basic functional tests 
+enabled: true
+
+runner_type: orquesta
+entry_point: workflows/basic_test/main.yaml
+
+parameters: 
+  gantry_url:
+    type: string
+    required: true
+
+    default: "https://20.109.5.152"
+    description: "target gantry site to run on"
+
+  user_cred:
+    type: string
+    required: true
+    secret: true 
+    default: "{{ st2kv.system.user_cred | decrypt_kv }}"
+    description: "user credential"
+
+  time_lock:
+    type: integer
+    required: true
+    default: 120
+    description: "time lock in seconds between runs"
+
+  git_packs:
+    type: array
+    default:
+      - "git@github.com:jcn2020/g_test.git=master"
+    required: true
+    description: "git code location"
+
+  pack_name:
+    type: string
+    required: true
+    default: g_test
+    description: "common pack name"
+
+  action_name: 
+    type: string
+    required: true
+    default: "hello_world"
+    description: "pack.action to run"
+
+  secret_key_test:
+    type: string
+    required: true
+    default: "a"  
+    secret: true 
+    description: "sticky key set for duration of time_lock"
+
+  secret_value_test:
+    type: string
+    required: true
+    default: "5" 
+    secret: true 
+    description: "expected test secret value"
+
+  register_all:
+    # type: string
+    # default: "true"
+    type: boolean
+    required: true
+    default: true
+    description: "reload register-all"
+
+  timeout:
+    type: integer
+    default: 5
+    description: timeout set for this run
+ 

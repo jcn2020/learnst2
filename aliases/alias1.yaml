@@ -1,0 +1,7 @@
+---
+name: greet
+pack: learnst2
+description: "Greet StackStorm"
+action_ref: "learn_stackstorm.greet"
+formats:
+  - "greet {{greeting}}"

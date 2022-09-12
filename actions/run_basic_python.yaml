@@ -1,0 +1,16 @@
+---
+name: say_hello
+pack: learnst2
+description: simple hello world
+enabled: true
+
+runner_type: "local-shell-script"
+entry_point: run_basic_python.py
+
+parameters:
+  greetings:
+    type: string
+    required: true
+    default: "Hello there "
+    description: Simple greeting
+    position: 1

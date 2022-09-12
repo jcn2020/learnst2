@@ -1,0 +1,8 @@
+name: reload
+# pack: learnst2
+description: reload all services in mongodb
+enabled: true
+
+runner_type: orquesta
+entry_point: workflows/reload/main.yaml
+

@@ -1,0 +1,215 @@
+---
+version: 1.0
+description: "basic tests"
+
+# basic "hello_world"
+# get token for future execution
+# check a utility pack and re-install the pack (over-write existing one if have to) | run one action from the installed utility pack
+# get list of key | search for key-value of interest from datastore | Update the value | check again for the value. 
+# reload
+input:
+  - gantry_url
+  - user_cred
+  - git_packs
+  - pack_name
+  - action_name
+  - secret_key_test
+  - secret_value_test
+  - register_all
+  - time_lock
+  - execution_id: <% ctx(st2).action_execution_id %>
+
+vars:
+  - action_result: 'nil'
+  - task_status: 'nil'
+  - message: "Test Message"
+  - auth_token: 'nil'
+  - workflow_status: 'nil'
+
+output:
+  - run_status: <% ctx().workflow_status %> 
+
+tasks: 
+  hello_world:
+    action: core.local
+    input:
+      # ok string - cmd: "echo {% if ctx().register_all != 'true' %} 'hello' {% else %} 'bye' {% endif %} "
+      # ok boolean - cmd: "echo {% if ctx().register_all != true %} 'hello' {% else %} 'bye' {% endif %} "
+      #  cmd: "echo {% if ctx().register_all %} 'hello' {% else %} 'bye' {% endif %} "
+      # https://documentation.bloomreach.com/engagement/docs/jinja-syntax
+      cmd: "echo {% if ctx().register_all %} 'Will reload all' {% else %} 'Simple test' {% endif %} "
+  
+  log_execution_id:
+    action: core.echo message="logging execution id <% ctx().execution_id %> " 
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          - action_result: "execution_id: <% ctx().execution_id %>"
+          - task_status: "[ succeeded ] log_execution_id <% ctx().execution_id %>"
+          - workflow_status: <% list( ctx().task_status ) %>
+        do:
+          - post_datadog_event
+          - get_token
+      - when: <% failed() %>
+        publish: 
+          - action_result: "execution_id: <$ ctx().execution_id %>"
+          - task_status: "[failed] unable to obtain log_execution_id" 
+          - workflow_status: <% list( ctx().task_status ) %>
+        do:
+          - post_datadog_event
+
+  get_token:
+    action: core.http
+    input:
+      url: "<% ctx().gantry_url %>/auth/v1/tokens"
+      headers: { "Accept": "application/json", "Authorization": "Basic <% ctx().user_cred %>" }
+      verify_ssl_cert: false
+      method: POST  
+
+    next: 
+      - when: <% succeeded() and task(get_token).result.status_code = 201 %> 
+        publish:
+          - auth_token: <% task(get_token).result.body.token %>
+          - action_result: <% task(get_token).result %>
+          - task_status: "[ succeeded ] get_token"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do:
+          - list_key
+          - post_datadog_event
+      - when: <% failed() %>
+        publish:
+          - task_status: "[  failed   ] get_token"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do: 
+          - post_datadog_event
+
+  list_key:
+    action: core.local cmd="st2 key list -t <% ctx().auth_token %> -d -j "
+    next:
+
+      # - when: <% succeeded() and task(list_key).result.stdout.select($.name).count() = 6 %>
+      #  do: 
+      #    - failed_run
+
+      - when: <% succeeded() and task(list_key).result.stdout.indexWhere($.name = ctx().secret_key_test) <= 0 %>
+      # - when: <% succeeded() and task(list_key).result.stdout.where($.name).count() < 0 %>
+        publish: 
+          - action_result: <% task(list_key).result.stdout.where($.name =~ ctx().secret_key_test ).select([$.name,$.value]) %> 
+          - task_status: "[ succeeded ] list_key"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do:
+          - set_key 
+          - post_datadog_event
+
+      - when: <% succeeded() and task(list_key).result.stdout.indexWhere($.name = ctx().secret_key_test) > 0 %>
+        publish: 
+          - action_result: <% task(list_key).result.stdout.where($.name =~ ctx().secret_key_test ).select([$.name,$.value]) %> 
+          - task_status: "[  stopped  ] list_key - other job is running"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do:
+          - post_datadog_event
+
+      - when: <% failed() %>
+        publish:
+          - task_status: "[  failed   ] list_key"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do:
+          - post_datadog_event
+          - failed_run
+
+  set_key: 
+    action: core.local cmd="st2 key set -t <% ctx().auth_token %> -j -l <% ctx().time_lock %> <% ctx().secret_key_test %> <% ctx().secret_value_test %> "
+    next: 
+      - when: <% succeeded() %> 
+        publish:
+          - action_result: <% list( task(set_key).result.stdout.name, task(set_key).result.stdout.value) %>
+          - task_status: "[ succeeded ] set_key "
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do: 
+          - search_pack
+          - post_datadog_event
+      - when: <% failed() %> 
+        publish: 
+          - task_status: "[  failed   ] set_key"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do: 
+          - post_datadog_event
+
+  search_pack:
+    action: core.local cmd="st2 pack get -t <% ctx().auth_token %> -j <% ctx().pack_name %>"
+    next: 
+      - when: <% succeeded() %>
+        publish: 
+          - action_result: <% list(task(search_pack).result.stdout.name, task(search_pack).result.stdout.version ) %>
+          - task_status: "[ succeeded ] search_pack"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do:
+          - install_pack
+          - post_datadog_event
+      - when: <% failed() %> 
+        publish: 
+          - action_result: "Unable to find pack"
+          - task_status: "[  failed   ] search_pack "
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+
+  install_pack: 
+    action: packs.install
+    input: 
+      packs: "<% ctx().git_packs %>"
+    next:
+      - when: <% succeeded() %> 
+        publish:
+          - action_result: "<% task(install_pack).result.output %>"
+          - task_status: "[ succeeded ] install_pack"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do:
+          - run_action 
+          - post_datadog_event
+      - when: <% failed() %>
+        publish:
+          - task_status: "[  failed   ] install_pack"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do: 
+          - post_datadog_event
+
+  run_action:
+    action: <% ctx().pack_name %>.<% ctx().action_name %>
+    input:
+      my_message: <% ctx().message %>
+    next: 
+      - when: <% succeeded() and ctx().register_all %> 
+        publish:
+          - task_status: "[ succeeded ] run_action"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do: post_datadog_event, reload
+
+      - when: <% failed() %> 
+        publish: 
+          - task_status: "[  failed   ] run_action"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do: post_datadog_event
+
+  reload: 
+    action: core.local cmd="st2ctl reload --register-all"
+    next: 
+      - when: <% succeeded() %>
+        publish: 
+          - results: <% task(reload).result %> 
+          - task_status: "[ succeeded ] reload"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do:
+          - post_datadog_event
+      - when: <% failed() %>
+        publish: 
+          - task_status: "[  failed   ] reload"
+          - workflow_status: <% ctx().workflow_status.append( ctx().task_status ) %>
+        do: 
+          - post_datadog_event
+
+
+  post_datadog_event:
+    action: core.echo message="[datadog] <% ctx().task_status %> "
+
+     
+  failed_run:
+    action: core.echo message="[  failed   ] <% ctx().task_status %>"

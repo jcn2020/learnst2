@@ -1,0 +1,85 @@
+---
+version: 1.0
+description: deploy packs
+
+input: 
+  - git_packs
+
+vars:
+  - status: 'nil'
+  - pack_ref_name: 
+      - "g_test"
+  - msg: "Hello Test"
+
+output: 
+  - mySource: <% ctx().git_packs %>
+  - myStatus: <% ctx().status %>
+
+tasks:
+  # task to check if installed? 
+  uninstall_pack:
+    action: packs.uninstall
+    input: 
+      packs: <% ctx().pack_ref_name %>
+    next: 
+      - when: <% succeeded() %>
+        publish:
+          - status: "[status] pass uninstall_pack"
+        do:
+          - install_pack
+
+  install_pack:
+    action: packs.install
+    input:  
+      packs: <% ctx().git_packs %>
+    next:
+      - when: <% succeeded() %> 
+        publish:
+          - status: "[status] pass install_pack"
+        do: 
+          - run_action
+
+  run_action:
+    action: g_test.hello_world
+    input: 
+      my_message: <% ctx().msg %> 
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          - status: "[status] pass run_action"
+        do:
+          - clean_up
+          - list_packs
+      - when: <% failed() %> 
+        publish:
+          - status: "[status] failed run_action"
+        do:
+          - clean_up
+
+  clean_up:
+    action: packs.install
+    input:
+      # packs: <% ctx().pack_ref_name %>
+      packs: <% ctx().git_packs %>
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - status: "[status] completed clean up]"
+      - when: <5 failed() %> 
+        publish: 
+          - status: "[status] failed clean up"
+
+  # get token 
+    
+  # count_secrets:
+
+  # check dummy secrets
+  
+  list_packs:
+    action: core.local
+    input:
+      cmd: "st2 login st2admin -p ChangeMe; st2 pack list"
+    # next: 
+    #   - when: <% succeeded() %>
+    #     publish:
+    #       -status: <% ctx(list_packs).result %>

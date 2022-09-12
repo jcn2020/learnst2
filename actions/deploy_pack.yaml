@@ -1,0 +1,15 @@
+name:  deploy_pack
+pack: learnst2
+description:  deploy package
+enabled: true
+
+runner_type: orquesta
+entry_point: workflows/deploy_pack/main.yaml
+
+parameters:
+  git_packs:
+    type: array
+    default: 
+      - 'git@github.com:jcn2020/g_test.git=master'
+    required: true
+    

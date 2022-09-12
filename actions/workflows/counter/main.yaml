@@ -1,0 +1,22 @@
+---
+version: 1.0
+description: counter usage
+
+vars:
+  - my_counter: 1
+  
+output: 
+  - final_counter: <% ctx().my_counter %> 
+
+tasks:
+  increment_counter:
+    action: core.local
+    input:
+       cmd: "echo counter is <% ctx().my_counter %>"
+    next:
+      - when: <% succeeded() %> 
+        publish:
+          - my_counter: 10
+
+
+  

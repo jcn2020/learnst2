@@ -1,0 +1,16 @@
+---
+name: get_tz_datetime
+# pack: learnst2
+description: get local datetime zone
+enabled: true
+
+runner_type: "local-shell-script"
+entry_point: /opt/stackstorm/packs/learnst2/artifacts/scripts/get_tz_datetime.sh
+
+parameters:
+  time_zone:
+    type: "string"
+    required: true
+    secret: false
+    default: "America/New_York"
+    position: 0

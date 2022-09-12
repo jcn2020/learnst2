@@ -1,0 +1,64 @@
+---
+version: 1.0
+description: available vars 
+
+input:
+  - name
+  - location
+  - levels
+  - confirmation
+  - dayOfWeek 
+
+#############################################
+#  Variables published by workflow on success
+#############################################
+vars:
+  - notUsed: "never used"
+
+# don't know how to use it
+#output_schema: 
+#  myName: 
+#    type: "string"
+#    required: true
+#  myLocation: 
+#    type: "string"
+#  myNotUsed:
+#    type: "string"
+
+#############################################
+# Output at the end of the workflow
+#############################################
+
+output:
+  - myName: <% ctx().name %>
+  - myLocation: <% ctx().location %>
+  - myLevel: "{{ ctx().levels }}"
+  - myConfirmation: "{{ ctx().confirmation }}" 
+  - myDayOfWeek: <% ctx().dayOfWeek %>
+#  - myPackageOwner: "{{config_context.api_key}}"
+#  - myActionContextUser: <% action_context.user %>
+#  - myActionContextPack: <% action_context.pack %>
+  - myKeyValue: <% action_context.a %>
+#  - myKeyValue: "testing"
+  - myNotUsed: <% ctx().notUsed %>
+  - myResult: <% task(display_vars).result.items.result.return_code %>
+  
+
+
+
+#############################################
+# Workflow tasks to complete
+#############################################
+tasks:
+  display_vars:
+    with:
+      items: <% ctx().levels %>
+    action: core.echo
+    input:
+      message: "<% item() %> and <% ctx().name %>  and <% ctx().location %>"
+    next:
+      - when: <% succeeded() %>
+        # publish: notUsed="{{action_context.location}}"
+        publish: notUsed="{{ ctx().location }}"
+        
+

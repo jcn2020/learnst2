@@ -1,0 +1,41 @@
+---
+name: key_test
+# pack: learnst2
+description: test ket create, get and usage
+enabled: true
+
+entry_point: workflows/key_test/main.yaml
+runner_type: orquesta
+
+parameters:
+  user_cred: 
+    type: string
+    default: "{{ st2kv.system.user_cred | decrypt_kv }}"
+    secret: true
+    # default: "c3QyYWRtaW46Q2hhbmdlTWU="
+
+  git_pack:
+    type: array
+    default: 
+      - 'git@github.com:jcn2020/g_test.git=master'
+    required: true
+
+  key_name:
+    type: string
+    secret: false
+    default: "a"
+
+  cred_test:
+    type: string
+    default: "a"
+    description: "system credential key name to validate"
+
+  cred_expected_value:
+    type: string
+    default: "5"
+    secret: true
+
+  api_key:
+    type: string
+    default: "Y2U4NWZhNzUxMzZjZDcxNDU4MDQyNGM1ZjE2ZGU5YzYwZDgzMzIwMWI4MzczNzY1MjBkZmNkMWE1MWNlOGQzYw"
+    required: true

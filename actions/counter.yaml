@@ -1,0 +1,9 @@
+---
+name: counter
+# pack: learnst2
+description: how arithmetic work
+enabled: true
+
+runner_type: orquesta
+entry_point: workflows/counter/main.yaml
+
