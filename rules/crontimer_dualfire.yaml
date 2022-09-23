@@ -7,7 +7,7 @@ enabled: true
 trigger:
   type: "core.st2.CronTimer"
   parameters:
-    timezone: "American/Los_Angeles"
+    timezone: "America/Los_Angeles"
     day_of_week: "*"
     hour: 17
     minute: 40
