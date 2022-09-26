@@ -16,7 +16,8 @@ tasks:
   send_greetings:
     action: g_test.hello_world
     input:
-      my_message: 
+    #  my_message: 
+      my_message: <% ctx().greetings %> 
     next: 
       - when: <% succeeded() %> 
         publish:
