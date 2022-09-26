@@ -10,5 +10,5 @@ entry_point: workflows/action_run.yaml
 parameters:
   greetings:
     type: string
-    default: "Hello World"
+    default: "Hello from action_run" 
     required: true
