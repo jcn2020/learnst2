@@ -4,7 +4,7 @@ pack: learnst2
 description: Sample rule firing on hello_st2.HelloSensorTrigger.
 enabled: true
 trigger:
-    type: "learnst2.HelloSensorTrigger"
+    type: "learnst2.hellosensortrigger"
 action:
     ref: learnst2.say_hello
     parameters:

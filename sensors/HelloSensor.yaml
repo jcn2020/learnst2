@@ -1,9 +1,9 @@
 ---
 class_name: "HelloSensor"
-entry_point: "sensor1.py"
+entry_point: "HelloSensor.py"
 description: "Test sensor that emits trigger"
 trigger_types:
-  - name: "event2"
+  - name: "hellosensortrigger"
     description: "An example trigger"
     payload_schema:
       type: "object"
