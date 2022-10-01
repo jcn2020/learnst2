@@ -1,16 +1,16 @@
 ---
 name: "crontimer_dualfire"
 # pack
-description: "single trigger =>> dual actions fire" 
+description: "single trigger for single action ...not possible for dual actions fire" 
 enabled: true
 
 trigger:
   type: "core.st2.CronTimer"
   parameters:
     timezone: "America/Los_Angeles"
-    day_of_week: "*"
+    day_of_week: "*" # this line is not needed
     hour: 17
-    minute: 40
+    minute: 00
     second: 00
 action:
   ref: "core.echo"
