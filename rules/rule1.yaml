@@ -8,5 +8,5 @@ trigger:
 action:
     ref: learnst2.say_hello
     parameters:
-        greetings: "Hello darkness my old friends"
-
+      # greetings: "Hello darkness my old friends"
+      greetings: "{{ trigger.greetings }}"
