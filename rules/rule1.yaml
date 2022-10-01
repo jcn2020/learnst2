@@ -4,9 +4,9 @@ pack: learnst2
 description: Sample rule firing on hello_st2.event1.
 enabled: true
 trigger:
-    type: learnst2.event2
+    type: learnst2.HelloSensorTrigger
 action:
     ref: learnst2.say_hello
     parameters:
       # greetings: "Hello darkness my old friends"
-      greetings: "{{trigger.greetings}} {{trigger.location}}"
+      greetings: "{{trigger.greetings}} {{trigger.location}} {{trigger.count}}"

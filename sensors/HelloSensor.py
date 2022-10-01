@@ -15,9 +15,12 @@ class HelloSensor(Sensor):
     def run(self):
         while not self._stop:
             self._logger.debug("HelloSensor dispatching trigger...")
+
             count = self.sensor_service.get_value("learnst2.count") or 0
             payload = {"greetings": "Yo, StackStorm!", "location": "Seattle", "count": int(count) + 1}
-            self.sensor_service.dispatch(trigger="learnst2.event2", payload=payload)
+
+            self.sensor_service.dispatch(trigger="learnst2.HelloSensorTrigger", payload=payload)
+
             self.sensor_service.set_value("learnst2.count", payload["count"])
             eventlet.sleep(60)
 
