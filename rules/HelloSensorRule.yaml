@@ -1,5 +1,5 @@
 ---
-name: on_hello_event1
+name: helloSensorRule
 pack: learnst2
 description: Sample rule firing on hello_st2.HelloSensorTrigger.
 enabled: true

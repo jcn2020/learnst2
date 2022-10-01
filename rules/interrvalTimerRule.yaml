@@ -1,5 +1,5 @@
 ---
-name: r01_interval_timer
+name: intervalTimerRule
 # pack: learnst2
 description: run an action every delta minutes interval
 enabled: false

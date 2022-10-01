@@ -1,5 +1,5 @@
 ---
-name: "crontimer_dualfire"
+name: "crontimerDailyRule"
 # pack
 description: "single trigger for single action ...not possible for dual actions fire" 
 enabled: true
