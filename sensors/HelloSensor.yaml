@@ -3,7 +3,9 @@ class_name: "HelloSensor"
 entry_point: "HelloSensor.py"
 description: "Test sensor that emits trigger"
 trigger_types:
-  - name: "hellosensortrigger"
+  # name of the action MUST be all lowercase
+  # "HelloSensorTrigger" would not work
+  - name: "hello_sensor_trigger"
     description: "An example trigger"
     payload_schema:
       type: "object"
