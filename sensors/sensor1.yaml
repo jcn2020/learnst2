@@ -7,3 +7,18 @@ trigger_types:
     description: "An example trigger"
     payload_schema:
       type: "object"
+      properties:
+        name:
+          type: string
+        location:
+          type: string
+        count:
+          type: integer
+
+    parameters_schema:
+      type: "object"
+      properties:
+        input1:
+          type: string
+          required: false
+          secret: false
