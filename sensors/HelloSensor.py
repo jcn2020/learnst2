@@ -8,6 +8,7 @@ class HelloSensor(Sensor):
         super(HelloSensor, self).__init__(sensor_service=sensor_service, config=config)
         self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)
         self._stop = False
+        self.hourDuration = 60 * 60 # in seconds`
 
     def setup(self):
         pass
@@ -22,7 +23,7 @@ class HelloSensor(Sensor):
             self.sensor_service.dispatch(trigger="learnst2.hello_sensor_trigger", payload=payload)
 
             self.sensor_service.set_value("learnst2.count", payload["count"])
-            eventlet.sleep(60)
+            eventlet.sleep(self.hourDuration)
 
     def cleanup(self):
         self._stop = True
