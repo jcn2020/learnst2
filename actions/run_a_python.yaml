@@ -10,7 +10,7 @@ parameters:
     type: string
     secret: false
     default: "BestKeptApi"
-    position: 0
+    position: 1
 
   my_docserv_client_secret:
     type: string
