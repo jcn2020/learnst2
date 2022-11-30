@@ -3,7 +3,7 @@ description: "run a python command with some args"
 enabled: true
 
 runner_type: "python-script"
-entry_point: workflows/run_a_command/main.py
+entry_point: workflows/run_a_python/main.py
 
 parameters:
   my_api_key:
