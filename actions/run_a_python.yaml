@@ -1,0 +1,19 @@
+name: run_a_python
+description: "run a python command with some args"
+enabled: true
+
+runner_type: "python-script"
+entry_point: workflows/run_a_command/main.yaml
+
+parameters:
+  my_api_key:
+    type: string
+    secret: false
+    default: "BestKeptApi"
+    position: 1
+
+  my_docserv_client_secret:
+    type: string
+    secret: true
+    default: "NotSoSecret"
+    position: 2
