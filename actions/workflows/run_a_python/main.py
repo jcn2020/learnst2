@@ -4,7 +4,7 @@ import logging
 logging.basicConfig( format='%(asctime)s %(message)s',
                      level=logging.DEBUG )
 
-from st2common.runner.base_action import Action 
+from st2common.runners.base_action import Action 
 
 class RunAPython:
   def __init__( self, my_api_key, my_docserv_client_secret):
