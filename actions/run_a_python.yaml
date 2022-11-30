@@ -16,4 +16,4 @@ parameters:
     type: string
     secret: true
     default: "NotSoSecret"
-    position: 0
+    position: 1
