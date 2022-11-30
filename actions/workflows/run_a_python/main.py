@@ -7,7 +7,7 @@ logging.basicConfig( format='%(asctime)s %(message)s',
 from st2common.runners.base_action import Action 
 
 class RunAPython(Action):
-  #def __init__( self, my_api_key = "v1", my_docserv_client_secret = "v2" ):
+  #def __init__( self, my_api_key , my_docserv_client_secret ):
     #self.api_key = my_api_key
     #self.client_secret = my_docserv_client_secret
   
