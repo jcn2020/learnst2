@@ -9,7 +9,7 @@ entry_point: workflows/run_a_python/main.py
 parameters:
   my_api_key:
     type: string
-    secret: false
+    secret: true 
     default: "BestKeptApi"
     position: 1
 
