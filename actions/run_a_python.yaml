@@ -9,13 +9,13 @@ entry_point: workflows/run_a_python/main.py
 parameters:
   my_api_key:
     type: string
-    secret: true
+    secret: false
     default: "BestKeptApi"
     position: 1
 
   my_docserv_client_secret:
     type: string
-    secret: true
+    secret: false
     default: "NotSoSecret"
     position: 2
     
