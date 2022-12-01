@@ -15,7 +15,7 @@ parameters:
 
   my_docserv_client_secret:
     type: string
-    secret: false
+    secret: true
     default: "NotSoSecret"
     position: 2
     
