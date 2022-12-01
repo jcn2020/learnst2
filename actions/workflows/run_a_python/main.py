@@ -11,7 +11,7 @@ class RunAPython(Action):
     #self.api_key = my_api_key
     #self.client_secret = my_docserv_client_secret
   
-  def run(self, my_api_key="v1", my_docserv_client_secret="v2"): 
+  def run(self, my_api_key=my_api_key, my_docserv_client_secret=my_docserv_client_secret): 
     self.api_key = my_api_key
     self.docserv_client_secret = my_docserv_client_secret
     logging.debug(f"value of api_key = {my_api_key}")
