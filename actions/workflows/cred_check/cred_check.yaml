@@ -14,12 +14,12 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish:
-          stdout: "looks good"
+          - stdout: "looks good"
         do: 
           - check_passed
       - when: <% failed() %>
         publish:
-          stdout: "take another try"
+          - stdout: "take another try"
         do: 
           - check_failed
   check_passed:
