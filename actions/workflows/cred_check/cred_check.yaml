@@ -11,13 +11,15 @@ tasks:
     input:
       cmd: > 
         echo <% ctx().cred_1 %> 
-    output:
-      stdout: "some results"
     next:
       - when: <% succeeded() %>
+        output:
+          stdout: "some failed results"
         do: 
           - check_passed
       - when: <% failed() %>
+        output:
+          stdout: "some failed results"
         do: 
           - check_failed
   check_passed:
