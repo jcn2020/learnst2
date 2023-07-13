@@ -10,10 +10,10 @@ entry_point: workflows/cred_check/cred_check.yaml
 
 parameters:
   cred_1:
+    default: "{{st2kv.system.cred_1 | decrypt_kv }}"
     type: string
     required: true
-    secret: false
-    default: "{{st2kv.system.cred_1 | decrypt_kv }}"
+    secret: true
     description: "cred default for cred_1"
 
   
