@@ -1,5 +1,5 @@
 ---
-name: check_access_param_1
+name: check_access_param_2
 # pack
 description: check access
 enabled: true
@@ -10,7 +10,7 @@ entry_point: workflows/check_access/check_access_param.yaml
 
 parameters:
   param:
-    default: "{{st2kv.system.test1 | decrypt_kv }}"
+    default: "{{st2kv.system.dpgantryautomationserviceaccount | decrypt_kv }}"
     type: string
     required: true
     secret: true

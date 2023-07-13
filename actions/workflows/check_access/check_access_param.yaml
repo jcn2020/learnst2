@@ -3,14 +3,14 @@ version: 1.0
 description: display some param 
 
 input: 
-  - param_1
+  - param
 
 tasks: 
   display_cred:
     action: core.local
     input:
       cmd: > 
-        echo <% ctx().param_1 %>  
+        echo <% ctx().param %>  
     next:
       - when: <% succeeded() %>
         do: 
