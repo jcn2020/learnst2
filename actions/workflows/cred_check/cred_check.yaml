@@ -25,5 +25,5 @@ tasks:
 
   check_failed:
     action: core.echo
-      input:
-        message: "Failed"
+    input:
+      message: "Failed"
