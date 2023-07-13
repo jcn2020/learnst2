@@ -11,6 +11,8 @@ tasks:
     input:
       cmd: > 
         echo <% ctx().cred_1 %> 
+      output:
+        stdout: "some results"
     next:
       - when: <% succeeded() %>
         do: 
