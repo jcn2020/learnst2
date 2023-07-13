@@ -1,0 +1,19 @@
+---
+name: check_access_param1
+# pack
+description: check access
+enabled: true
+
+runner_type: orquesta
+entry_point: workflows/check_access/check_access_param_1.yaml
+
+
+parameters:
+  param_1:
+    default: "{{st2kv.system.test1 | decrypt_kv }}"
+    type: string
+    required: true
+    secret: true
+    description: "default for param_1"
+
+  

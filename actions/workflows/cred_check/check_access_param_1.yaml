@@ -1,25 +1,21 @@
 ---
 version: 1.0
-description: display some cred 
+description: display some param 
 
 input: 
-  - cred_1
+  - param_1
 
 tasks: 
   display_cred:
     action: core.local
     input:
       cmd: > 
-        echo <% ctx().cred_1 %> 
+        echo <% ctx().param_1 %>  
     next:
       - when: <% succeeded() %>
-        publish:
-          - stdout: "looks good"
         do: 
           - check_passed
       - when: <% failed() %>
-        publish:
-          - stdout: "take another try"
         do: 
           - check_failed
   check_passed:
