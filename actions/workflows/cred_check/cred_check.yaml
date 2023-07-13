@@ -13,13 +13,13 @@ tasks:
         echo <% ctx().cred_1 %> 
     next:
       - when: <% succeeded() %>
-        output:
-          stdout: "some failed results"
+        publish:
+          stdout: "looks good"
         do: 
           - check_passed
       - when: <% failed() %>
-        output:
-          stdout: "some failed results"
+        publish:
+          stdout: "take another try"
         do: 
           - check_failed
   check_passed:
