@@ -1,0 +1,29 @@
+---
+version: 1.0
+description: display some cred 
+
+input: 
+  - cred_1
+
+tasks: 
+  display_cred:
+    action: core.local
+    input:
+      cmd: > 
+        echo <% ctx().cred_1 %> 
+    next:
+      - when: <% succeeded() %>
+        do: 
+          - check_passed
+      - when: <% failed() %>
+        do: 
+          - check_failed
+  check_passed:
+    action: core.echo
+    input:
+      message: "Passed"
+
+  check_failed:
+    action: core.echo
+      input:
+        message: "Failed"
