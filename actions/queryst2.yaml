@@ -5,7 +5,7 @@ description: query st2 directory
 enabled: true
 
 runner_type: python-script
-entry_point: workflow/queryst2/main.py
+entry_point: workflows/queryst2/main.py
 
 parameters:
   directory_name:
