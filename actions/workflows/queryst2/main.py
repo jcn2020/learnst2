@@ -38,5 +38,6 @@ class QuerySt2(Action):
                             secret_list.append(m)
                             print(m)
                     fh.close()
-          if not secret_list: packs[pack] = packs[pack].append(secret_list)
+                    print(secret_list)
+          if secret_list: packs[pack] = packs[pack].append(secret_list)
         print(packs)
