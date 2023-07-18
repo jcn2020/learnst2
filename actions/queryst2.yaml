@@ -8,9 +8,9 @@ runner_type: python-script
 entry_point: workflows/queryst2/main.py
 
 parameters:
-  directory_name:
+  pack_name:
     type: string 
     secret: false
-    default: "/opt/stackstorm/packs/learnst2"
+    default: "learnst2"
     position: 1
     required: true
