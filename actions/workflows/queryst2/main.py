@@ -14,8 +14,10 @@ class QuerySt2(Action):
         path = r"/opt/stackstorm/packs"
         ## find different packs in packs
         pack_list = [x[0] for x in os.walk(path)]
+        print("\n".join(pack_list))
 
         for pack in pack_list: 
+          secret_list = []
           packFullPath = os.path.join(path, pack)
 
           # check if pack available
@@ -33,5 +35,5 @@ class QuerySt2(Action):
                             secret_list.append(m)
                             print(m)
                     fh.close()
-          packs[pack] = secret_list
+          if not secret_list: packs[pack] = secret_list
         print(packs)
