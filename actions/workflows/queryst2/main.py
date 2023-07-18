@@ -14,7 +14,7 @@ class QuerySt2(Action):
             for f in f_names:
                 if p.match(f):
                     fullpath = os.path.join(root,f)
-                    fh = open(fullpah, "r")
+                    fh = open(fullpath, "r")
                     lines = fh.readlines()
                     contents = "----".join(lines)
                     match = re.findall(r'.*st2kv.system.(\S+)\s*|', contents)
