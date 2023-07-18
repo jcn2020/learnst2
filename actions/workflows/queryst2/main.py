@@ -21,7 +21,7 @@ class QuerySt2(Action):
                     fh = open(fullpath, "r")
                     lines = fh.readlines()
                     contents = "----".join(lines)
-                    match = re.findall(r'.*st2kv.system.(\S+)\s*|', contents)
+                    match = re.findall(r'.*st2kv.system.(\S+)\s?|', contents)
                     for m in match:
                         if m not in mypacks['secretList']:
                             mypacks['secretList'].append(m)
