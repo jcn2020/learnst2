@@ -36,8 +36,6 @@ class QuerySt2(Action):
                     for m in match:
                         if m not in secret_list and m:
                             secret_list.append(m)
-                            print(m)
                     fh.close()
-                    print(secret_list)
           if secret_list: packs[pack] = secret_list
         print(packs)
