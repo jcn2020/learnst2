@@ -13,7 +13,7 @@ class QuerySt2(Action):
         secret_list = []
         path = r"/opt/stackstorm/packs"
         ## find different packs in packs
-        pack_list = [f.name for f in os.scandir(path)]
+        pack_list = [name for name in os.listdir(path)]
         print("========")
         print(pack_list)
         print("========")
