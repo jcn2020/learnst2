@@ -5,12 +5,12 @@ from st2common.runners.base_action import Action
 
         
 class QuerySt2(Action):
-    def run(self, directoryName):
-        print("directory name = " + directoryName)
+    def run(self, directory_name):
+        print("directory name = " + directory_name)
         mypacks = { 'name': os.path.basename(directoryName),
                     'secretList': [] }
         p = re.compile(r"\S+.yaml")
-        for root, d_names, f_names in os.walk(directoryName):
+        for root, d_names, f_names in os.walk(directory_name):
             for f in f_names:
                 if p.match(f):
                     fullpath = os.path.join(root,f)
