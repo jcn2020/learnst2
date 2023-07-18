@@ -8,11 +8,12 @@ class QuerySt2(Action):
     def run(self, pack_name):
         print("directory name = " + pack_name)
         
+        packs = {}
+        secret_list = []
         path = r"/opt/stackstorm/packs"
         packFullPath = os.path.join(path, pack_name)
+
         # check if pack available
-        mypacks = { 'name': os.path.basename(packFullPath),
-                    'secretList': [] }
         p = re.compile(r"\S+.yaml")
         for root, d_names, f_names in os.walk(packFullPath):
             for f in f_names:
@@ -24,7 +25,8 @@ class QuerySt2(Action):
                     match = re.findall(r'.*st2kv.system.(\S+)\s?|', contents)
                     for m in match:
                         if m not in mypacks['secretList'] and m:
-                            mypacks['secretList'].append(m)
+                            secret_list.append(m)
                             print(m)
                     fh.close()
-        print(mypacks)
+        packs[pack_name] = secret_list
+        print(packs)
