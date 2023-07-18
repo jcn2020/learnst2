@@ -33,5 +33,5 @@ class QuerySt2(Action):
                             secret_list.append(m)
                             print(m)
                     fh.close()
-          packs[pack_name] = secret_list
+          packs[pack] = secret_list
         print(packs)
