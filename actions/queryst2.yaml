@@ -1,0 +1,16 @@
+---
+name: queryst2
+# pack: learnst2
+description: query st2 directory 
+enabled: true
+
+runner_type: python-script
+entry_point: workflow/queryst2/main.py
+
+parameters:
+  directory_name:
+    type: string 
+    secret: false
+    default: "/opt/stackstorm/packs/learnst2"
+    position: 1
+    required: true
