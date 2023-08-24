@@ -39,7 +39,7 @@ class QuerySt2(Action):
                             secret_list.append(m)
                     fh.close()
           if secret_list: pack_secrets[pack] = secret_list
-        print(packs)
+        print(pack_secrets)
         # find the current working pwd
         print("======== Current PWD ===== ")
         print(os.listdir())
