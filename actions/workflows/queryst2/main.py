@@ -22,7 +22,7 @@ class QuerySt2(Action):
         for pack in pack_list: 
           print("=====> pack = ", pack)
           secret_list = []
-          pack_fullpath = os.path.join(path, pack)
+          packFullPath = os.path.join(path, pack)
 
           # check for all secrets in st2kv.system.* 
           p = re.compile(r"\S+.yaml")
