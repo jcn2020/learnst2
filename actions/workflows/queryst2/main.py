@@ -44,7 +44,7 @@ class QuerySt2(Action):
         print("======== Current PWD ===== ")
         print(os.listdir())
     def __init__(self):
-        packs_secrets = {}
-        secrets_fgidsOwned = {}
-        secrets_fgidsShared = {}
-        secrets_fgidsGranted = {}
+        self.packs_secrets = {}
+        self.secrets_fgidsOwned = {}
+        self.secrets_fgidsShared = {}
+        self.secrets_fgidsGranted = {}
