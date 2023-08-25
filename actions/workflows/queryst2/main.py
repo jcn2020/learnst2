@@ -43,3 +43,8 @@ class QuerySt2(Action):
         # find the current working pwd
         print("======== Current PWD ===== ")
         print(os.listdir())
+    def __init__(self):
+        packs_secrets = {}
+        secrets_fgidsOwned = {}
+        secrets_fgidsShared = {}
+        secrets_fgidsGranted = {}
