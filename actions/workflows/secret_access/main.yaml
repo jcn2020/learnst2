@@ -17,7 +17,7 @@ tasks:
     action: core.local
     input: 
       cmd: >
-        echo "system_key01 ${system_key01}
-        echo "system_key02 ${system_key02}
+        echo system_key01 <% ctx().system_key01 %>
+        echo system_key02 <% ctx().system_key02 %>
 #        echo "user1_key10 ${user1_key10}
 #        echo "user2_key20 ${user2_key20}
