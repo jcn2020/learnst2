@@ -9,7 +9,81 @@ Learn StackStorm
   * 
 * install docker ub20.04 docs.docker.com
   
+## How to add a stackstorm user [st2 doc page](https://docs.stackstorm.com/rbac.html)
+1.  Enable RBAC  
+   turn on rbac in /etc/st2/st2.conf
+~~~
+[rbac]
+enable = True  #rbac turn on
+backend= default  # 
 
+~~~
+
+2. assign standard admin -  to st2admin and stanley user
+    * update /opt/stackstorm/rbac/assignments/stanley.yaml:
+~~~
+---
+username: "stanley"
+roles: 
+  - "admin"
+~~~
+
+3. Assign User - update /opt/stackstorm/rbac/assignments/st2admin.yaml
+~~~
+---
+username: "st2admin"
+roles:
+  - "admin"
+~~~
+
+4. Add standard user(s)
+~~~
+  * cd /etc/st2/
+  * check for existing users.  "htpasswd -h"
+  * htpassw htpasswd myuser1
+~~~
+
+5. Update access -- rbac =>> [assignments/, roles/ ] -- asignment for admin, roles for other normal users
+  * Create a role 
+    * cd /opt/stackstorm/rbac/roles
+    * example 
+~~~
+---
+name: "global"
+description: "cut and paste from global"
+enabled: true
+
+permission_grants:
+    - 
+       resource_uid: "pack:learnst2"
+       permission_types:
+       - "action_all"
+       - "pack_all"
+       - "sensor_type_all"
+       - "action_alias_all"
+       - "rule_all"
+
+    -
+       permission_types:
+       - "pack_install"
+       - "pack_uninstall"
+       - "pack_create"
+
+~~~
+6. Create assignment 
+    * cd /opt/stackstorm/rbac/assignments 
+    * create myuser1 assignment with content like below 
+~~~
+     username: "user1"
+     roles:
+       - "global"
+~~~
+7. Reload definition 
+~~~
+    * cd /opt/stackstorm/st2/bin
+    * sudo st2-apply-rbac-definitions --config-file /etc/st2/st2.conf #any rbac files update
+    * sudo st2ctl restart-component st2api  # run for any st2.*.conf update
+~~~
 ### pack manage
 * packs/packname/config.schema.yaml ==>  what are needed to config pack before use
 * configs/packname.yaml  ==> provide the value as required in config.schema.yaml
