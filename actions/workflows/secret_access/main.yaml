@@ -9,7 +9,7 @@ input:
 #  - user2_key20
 
 output:
-  - my_status
+  - my_status: nil
 
 
 tasks:
