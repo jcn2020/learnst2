@@ -1,8 +1,7 @@
 import os, time, sys
 import logging
 
-logging.basicConfig(format='%(ascitime)s %(message)s',
-                     level=logging.DEBUG')
+logging.basicConfig(format='%(ascitime)s %(message)s', level=logging.DEBUG)
 
 from st2common.runners.base_action import Action  
 
