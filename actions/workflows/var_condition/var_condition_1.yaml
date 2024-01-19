@@ -21,4 +21,4 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish:
-          - prod_act: <% task(analyze).result.stderr %>
+          - prod_act: <% task(analyze).result.result %>
