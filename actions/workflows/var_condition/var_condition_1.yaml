@@ -6,7 +6,7 @@ input:
   - production_active
 
 vars:
-  - prod_act: nil
+  - prod_act: string
 
 output: 
   - my_output: <% task(analyze).result.result %>
