@@ -5,8 +5,6 @@ description: print a string if input production_active is true
 input:
 - production_active
 
-vars:
-- temp_string
 
 output:
 - my_output
