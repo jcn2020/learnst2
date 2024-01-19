@@ -84,6 +84,10 @@ permission_grants:
     * sudo st2-apply-rbac-definitions --config-file /etc/st2/st2.conf #any rbac files update
     * sudo st2ctl restart-component st2api  # run for any st2.*.conf update
 ~~~
+![Alt text](<Screenshot 2023-09-17 at 7.03.37 PM.png>)
+
+
+
 ### pack manage
 * packs/packname/config.schema.yaml ==>  what are needed to config pack before use
 * configs/packname.yaml  ==> provide the value as required in config.schema.yaml
