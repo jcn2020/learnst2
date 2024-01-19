@@ -9,7 +9,7 @@ vars:
   - prod_act: <% ctx().production_active %>
 
 output: 
-  - my_output: nil
+  - my_output
 
 
 
@@ -21,4 +21,4 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish:
-          - my_output: <% task(analyze).result.result %>
+          - my_output: <% task(analyze).result.stdout %>
