@@ -9,7 +9,7 @@ vars:
   - prod_act: string
 
 output: 
-  - my_output: <% task(analyze).result.result %>
+  - my_output: <% ctx().prod_act %>
 
 
 
