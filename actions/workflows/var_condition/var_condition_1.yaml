@@ -6,7 +6,7 @@ input:
   - production_active
 
 vars:
-  - prod_act: <% task(analyze).result.result %>
+  - prod_act
 
 output: 
   - my_output: <% ctx().prod_act %>
@@ -21,4 +21,4 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish:
-          - my_output: <% ctx().prod_act %>
+          - prod_act: <% task(analyze).result.result %>
