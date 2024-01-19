@@ -12,6 +12,6 @@ tasks:
     input:
       production_active
     next:
-      - when: <% succeeded() %>
+      - when: <% failed() %>
         publish:
           - my_output: <% task(analyze).result.stdout %>
