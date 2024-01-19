@@ -5,6 +5,9 @@ description: print a string if input production_active is true
 input:
   - production_active
 
+vars:
+  - prod_act: <% ctx().production_active %>
+
 output: 
   - my_output: nil
 
@@ -14,7 +17,7 @@ tasks:
   analyze:
     action: learnst2.var_condition_1_checker
     input:
-      production_active
+      production_active: <% ctx().prod_act %>
     next:
       - when: <% failed() %>
         publish:
