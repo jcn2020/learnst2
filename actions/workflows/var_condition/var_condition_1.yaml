@@ -19,6 +19,6 @@ tasks:
     input:
       production_active: <% ctx().prod_act %>
     next:
-      - when: <% failed() %>
+      - when: <% succeeded() %>
         publish:
           - my_output: <% task(analyze).result.result %>
