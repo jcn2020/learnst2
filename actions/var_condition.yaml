@@ -1,0 +1,15 @@
+---
+name: var_condition
+## pack:
+description: check variable content and choose flow in workflow  
+enabled: true
+
+runner_type: orquesta
+entry_point: workflows/var_condition/var_condition_1.yaml
+
+parameters:
+  production_active:
+    type: boolean
+    default: true
+    secret: false
+    description: "production_active status"

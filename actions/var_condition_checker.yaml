@@ -1,0 +1,15 @@
+---
+name: var_condition_checker 
+## pack: 
+description: python script to receive a boolean and return a string
+enabled: true
+
+runner_type: "python-script"
+entry_point: workflows/var_condition/var_condition_1.py
+
+parameters:
+  production_active:
+    type: boolean
+    default: true
+    secret: false
+    description: "production_active status"
