@@ -1,5 +1,5 @@
 ---
-name: var_condition_checker 
+name: var_condition_1_checker 
 ## pack: 
 description: python script to receive a boolean and return a string
 enabled: true
