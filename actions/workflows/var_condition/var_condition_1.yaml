@@ -3,7 +3,11 @@ version: 1.0
 description: print a string if input production_active is true
 
 input:
-- production_active
+  - production_active
+
+output: 
+  - my_output: nil
+
 
 
 tasks: 
