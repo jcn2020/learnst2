@@ -5,7 +5,7 @@ description: python script to receive a boolean and return a string
 enabled: true
 
 runner_type: "python-script"
-entry_point: workflows/var_condition/var_condition_1.py
+entry_point: workflows/var_condition/var_condition_1_checker.py
 
 parameters:
   production_active:
