@@ -5,15 +5,13 @@ description: print a string if input production_active is true
 input:
 - production_active
 
-output:
-- my_output: nil
 
 tasks: 
   analyze:
     action: learnst2.var_condition_1_checker
     input:
       production_active
-    next:
-      - when: <% succeeded() %>
-        publish:
-          - my_output: <% task(analyze).result.output %>
+    #next:
+    ##  - when: <% succeeded() %>
+    #    publish:
+    #      - my_output: <% task(analyze).result.output %>
