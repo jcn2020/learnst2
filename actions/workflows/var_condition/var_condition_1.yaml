@@ -19,4 +19,4 @@ tasks:
     next:
       - when: <%succeeded()%>
         publish:
-          - my_output:<%task(analyze).result.body %>
+          - my_output:<%task(analyze).result.output %>
