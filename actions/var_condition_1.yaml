@@ -10,5 +10,5 @@ entry_point: workflows/var_condition/var_condition_1.yaml
 parameters:
   production_active:
     type: boolean
-    default: true
+    default: false
     description: "production_active status"
