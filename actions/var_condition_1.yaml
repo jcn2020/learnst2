@@ -11,5 +11,4 @@ parameters:
   production_active:
     type: boolean
     default: true
-    secret: false
     description: "production_active status"
