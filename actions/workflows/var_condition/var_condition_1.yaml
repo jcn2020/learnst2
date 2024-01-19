@@ -6,10 +6,10 @@ input:
   - production_active
 
 vars:
-  - prod_act: <% ctx().production_active %>
+  - prod_act: <% task(analyze).result.result %>
 
 output: 
-  - my_output: <% task(analyze).result.result %>
+  - my_output: <% ctx().prod_act %>
 
 
 
@@ -21,4 +21,4 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish:
-          - my_output: <% task(analyze).result %>
+          - my_output: <% ctx().prod_act %>
