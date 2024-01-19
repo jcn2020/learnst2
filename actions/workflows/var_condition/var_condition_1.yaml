@@ -1,0 +1,22 @@
+---
+version: 1.0
+description: print a string if input production_active is true
+
+input:
+- production_active
+
+vars:
+- temp_string
+
+output:
+- my_output: <% ctx().temp_string %>
+
+tasks: 
+  analyze:
+    action: var_condition_1_checker
+    input:
+      production_active
+    next:
+      - when: <%succeeded()%>
+        publish:
+          - my_output:<%task(analyze).result.body %>
