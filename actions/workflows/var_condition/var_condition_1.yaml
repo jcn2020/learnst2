@@ -6,7 +6,7 @@ input:
 - production_active
 
 output:
-- my_output:nil
+- my_output: nil
 
 tasks: 
   analyze:
