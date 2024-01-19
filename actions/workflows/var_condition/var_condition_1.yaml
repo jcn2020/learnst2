@@ -13,3 +13,7 @@ tasks:
     action: learnst2.var_condition_1_checker
     input:
       production_active
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - my_output: <% task(analyze).result.output %>
