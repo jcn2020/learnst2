@@ -1,5 +1,5 @@
 ---
-name: var_condition
+name: var_condition_1
 ## pack:
 description: check variable content and choose flow in workflow  
 enabled: true
