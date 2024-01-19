@@ -17,7 +17,7 @@ tasks:
   analyze:
     action: learnst2.var_condition_1_checker
     input:
-      production_active: <% ctx().prod_act %>
+      production_active: <% ctx().production_active %>
     next:
       - when: <% succeeded() %>
         publish:
