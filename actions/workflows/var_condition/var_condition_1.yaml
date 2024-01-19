@@ -20,5 +20,5 @@ tasks:
       production_active: <% ctx().production_active %>
     next:
       - when: <% succeeded() %>
-        #publish:
-        #  - prod_act: <% task(analyze).result.stderr %>
+        publish:
+          - prod_act: <% task(analyze).result.stderr %>
