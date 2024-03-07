@@ -1,5 +1,5 @@
 ---
-name: my_max_concurrent_run
+name: concurrent.concurrency
 pack: learnst2
 description: "set max for concurrent run"
 enabled: true
