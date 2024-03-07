@@ -9,6 +9,8 @@ entry_point: workflows/concurrent/run_concurrent.yaml
 
 parameters: 
   job_queue:
-    type: "integer"
-    default: 1
+    type: "array"
+    default: 
+      - one
+      - two
     description: number of job to queue
