@@ -13,4 +13,10 @@ parameters:
     default: 
       - one
       - two
+      - three
+      - four
+      - five
+      - six
+      - seven
+      - eight
     description: number of job to queue
