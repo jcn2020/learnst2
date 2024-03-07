@@ -16,7 +16,8 @@ tasks:
   run_jobs:
     with: <% ctx(job_queue)
     action: core.local
-    cmd: "echo name = <% item() %>"
+    input: 
+      cmd: "echo name = <% item() %>"
 
 
 
