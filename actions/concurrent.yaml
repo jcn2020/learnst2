@@ -1,0 +1,14 @@
+---
+name: concurrent
+# pack: 
+description: learn to run concurrent
+enabled: true
+
+runner_type: orquesta
+entry_point: workflows/concurrent/run_concurrent.yaml
+
+parameters: 
+  job_queue:
+    type: "integer"
+    default: 1
+    description: number of job to queue

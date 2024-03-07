@@ -1,0 +1,16 @@
+---
+version: 1.0
+description: "trigger concurrent jobs"
+
+input: 
+  - job_queue: 2
+
+vars: 
+  - temp
+
+tasks:
+  run_single_job:
+    action: core.local
+    input: 
+      cmd: "sleep 10"
+
