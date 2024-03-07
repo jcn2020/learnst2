@@ -2,7 +2,7 @@
 name: concurrent.concurrency
 pack: learnst2
 description: "set max for concurrent run"
-enabled: true
+enabled: false
 
 resource_ref: learnst2.concurrent 
 policy_type: action.concurrency
