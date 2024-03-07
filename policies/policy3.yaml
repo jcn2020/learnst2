@@ -2,10 +2,10 @@
 name: concurrent.concurrency
 pack: learnst2
 description: "set max for concurrent run"
-enabled: false
+enabled: true
 
 resource_ref: learnst2.concurrent 
 policy_type: action.concurrency
 parameters: 
   action: delay
-  threshold: 10 
+  threshold: "10"
