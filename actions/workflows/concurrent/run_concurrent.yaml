@@ -12,7 +12,7 @@ tasks:
   sleepy_job:
     action: core.local
     input: 
-      cmd: "sleep 10"
+      cmd: "sleep 1"
   run_jobs:
     with: <% ctx(job_queue) %>
     action: core.local
