@@ -1,6 +1,6 @@
 ---
 name: concurrent
-# pack: 
+pack: learnst2
 description: learn to run concurrent
 enabled: true
 
