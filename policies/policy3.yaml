@@ -7,5 +7,5 @@ enabled: true
 resource_ref: learnst2.concurrent 
 policy_type: action.concurrent
 parameters: 
-  action: cancel
+  action: delay
   threshold: 3
