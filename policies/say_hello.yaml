@@ -1,0 +1,11 @@
+---
+name: say_hello.concurrency
+pack: learnst2 
+description: "setup policy for max run" 
+enabled: true  
+
+resource_type: learnst2.say_hello
+policy_type: action.concurrency 
+parameters: 
+  action: cancel  
+  threshold: 3
