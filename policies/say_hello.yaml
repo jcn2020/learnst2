@@ -7,5 +7,5 @@ enabled: true
 resource_ref: learnst2.say_hello
 policy_type: action.concurrency 
 parameters: 
-  action: cancel  
-  threshold: 3
+  action: delay  
+  threshold: 2
