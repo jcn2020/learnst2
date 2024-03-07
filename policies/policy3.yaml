@@ -8,4 +8,4 @@ resource_ref: learnst2.concurrent
 policy_type: action.concurrency
 parameters: 
   action: delay
-  threshold: 3
+  threshold: 2
