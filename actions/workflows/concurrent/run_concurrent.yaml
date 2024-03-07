@@ -6,7 +6,7 @@ input:
   - job_queue: 2
 
 vars: 
-  - temp
+  - temp: nil
 
 tasks:
   run_single_job:
