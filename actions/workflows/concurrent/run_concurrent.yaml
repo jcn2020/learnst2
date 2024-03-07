@@ -16,7 +16,7 @@ tasks:
   run_jobs:
     with: 
       items: <% ctx(job_queue) %>
-      concurrency: 10
+      # concurrency: 20
     action: core.local
     input: 
       cmd: "echo name = <% item() %> ; sleep 4"
