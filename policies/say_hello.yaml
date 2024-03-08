@@ -8,4 +8,4 @@ resource_ref: learnst2.say_hello
 policy_type: action.concurrency 
 parameters: 
   action: delay  
-  threshold: 2
+  threshold: 1

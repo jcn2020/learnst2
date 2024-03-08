@@ -25,4 +25,7 @@ parameters:
       - twelve
       - thirteen
       - fourteen
+      - fifteen
+      - sixteen
+      - seventeen
     description: number of job to queue
