@@ -9,7 +9,7 @@ trigger:
   parameters:
     timezone: "America/Los_Angeles"
     day_of_week: "*" # this line is not needed
-    hour: 17
+    hour: 19
     minute: 00
     second: 00
 action:
