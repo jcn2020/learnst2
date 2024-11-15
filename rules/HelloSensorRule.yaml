@@ -8,4 +8,4 @@ trigger:
 action:
     ref: learnst2.say_hello
     parameters:
-      greetings: "{{trigger.greetings}} {{trigger.location}} {{trigger.count}}"
+      greetings: "{{trigger.greetings}} {{trigger.location}} {{trigger.count}} {{trigger.api_key}}"
