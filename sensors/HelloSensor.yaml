@@ -16,6 +16,8 @@ trigger_types:
           type: string
         count:
           type: integer
+        api_key:
+          type: string
 
     #parameters_schema:
     #  type: "object"
