@@ -2,6 +2,9 @@
 class_name: "HelloSensor"
 entry_point: "HelloSensor.py"
 description: "Test sensor that emits trigger"
+poll_internal: 60
+enabled: true
+
 trigger_types:
   # name of the action MUST be all lowercase
   # "HelloSensorTrigger" would not work
