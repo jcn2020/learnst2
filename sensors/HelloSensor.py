@@ -9,12 +9,16 @@ class HelloSensor(Sensor):
         self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)
         self._stop = False
         self.hourDuration = 60 * 60 # in seconds`
+        self.hourDuration = 60 # in seconds`
 
     def setup(self):
         pass
 
     def run(self):
         while not self._stop:
+
+            print(f"value of api_key is {config['api_key']}" ) 
+
             self._logger.debug("HelloSensor dispatching trigger...")
 
             count = self.sensor_service.get_value("learnst2.count") or 0
