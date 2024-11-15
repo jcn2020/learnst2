@@ -2,7 +2,7 @@
 class_name: "HelloSensor"
 entry_point: "HelloSensor.py"
 description: "Test sensor that emits trigger"
-poll_internal: 60
+poll_interval: 60
 enabled: true
 
 trigger_types:
