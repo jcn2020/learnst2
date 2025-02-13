@@ -1,20 +1,22 @@
 import eventlet
 
-from st2reactor.sensor.base import Sensor
+# from st2reactor.sensor.base import Sensor
+from st2reactor.sensor.base import PollingSensor
 
 
-class HelloSensor(Sensor):
+class HelloSensor(PollingSensor):
     def __init__(self, sensor_service, config):
         super(HelloSensor, self).__init__(sensor_service=sensor_service, config=config)
         self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)
         self._stop = False
         # self.hourDuration = 60 * 60 # in seconds`
-        self.hourDuration = 60 # in seconds`
+        self.hourDuration = 3600 # in seconds`
 
     def setup(self):
         pass
 
-    def run(self):
+    # def run(self):
+    def poll(self):
         while not self._stop:
 
             print(f"value of api_key is {config['api_key']}" ) 
