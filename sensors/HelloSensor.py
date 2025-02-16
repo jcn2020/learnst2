@@ -20,8 +20,7 @@ class HelloSensor(Sensor):
 
     # def run(self):
     def run(self):
-        # while not self._stop:
-        pass
+        while not self._stop:
 
             print(f"value of api_key is {self.config['api_key']}" ) 
 
