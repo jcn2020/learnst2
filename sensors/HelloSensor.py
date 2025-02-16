@@ -26,12 +26,12 @@ class HelloSensor(Sensor):
 
             self._logger.debug("HelloSensor dispatching trigger...")
 
-            count = self.sensor_service.get_value("learnst2.count") or 0
+            count = self._sensor_service.get_value("learnst2.count") or 0
             payload = {"greetings": "Yo, StackStorm2!", "api_key": self.config['api_key'], "location": "Seattle", "count": int(count) + 1}
 
             self._sensor_service.dispatch(trigger="learnst2.hello_sensor_trigger", payload=payload)
 
-            self.sensor_service.set_value("learnst2.count", payload["count"])
+            self._sensor_service.set_value("learnst2.count", payload["count"])
             # eventlet.sleep(self.hourDuration)
             time.sleep(self.hourDuration)
 
