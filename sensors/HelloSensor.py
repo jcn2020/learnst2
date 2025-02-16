@@ -1,4 +1,5 @@
-import eventlet
+# import eventlet
+import time
 
 # from st2reactor.sensor.base import Sensor
 from st2common.runners.base_action import Action
@@ -31,7 +32,8 @@ class HelloSensor(Sensor):
             self.sensor_service.dispatch(trigger="learnst2.hello_sensor_trigger", payload=payload)
 
             self.sensor_service.set_value("learnst2.count", payload["count"])
-            eventlet.sleep(self.hourDuration)
+            # eventlet.sleep(self.hourDuration)
+            time.sleep(self.hourDuration)
 
     def cleanup(self):
         self._stop = True
