@@ -21,12 +21,12 @@ class HelloSensor(Sensor):
     def run(self):
         while not self._stop:
 
-            print(f"value of api_key is {config['api_key']}" ) 
+            print(f"value of api_key is {self.config['api_key']}" ) 
 
             self._logger.debug("HelloSensor dispatching trigger...")
 
             count = self.sensor_service.get_value("learnst2.count") or 0
-            payload = {"greetings": "Yo, StackStorm!", "api_key": config['api_key'], "location": "Seattle", "count": int(count) + 1}
+            payload = {"greetings": "Yo, StackStorm!", "api_key": self.config['api_key'], "location": "Seattle", "count": int(count) + 1}
 
             self.sensor_service.dispatch(trigger="learnst2.hello_sensor_trigger", payload=payload)
 
