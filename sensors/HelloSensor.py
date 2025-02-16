@@ -9,7 +9,7 @@ from st2reactor.sensor.base import Sensor
 class HelloSensor(Sensor):
     def __init__(self, sensor_service, config=None):
         super(HelloSensor, self).__init__(sensor_service=sensor_service, config=config)
-        self._logger = self._sensor_service.get_logger(name=self.__class__.__name__)
+        self._logger = self.sensor_service.get_logger(name=self.__class__.__name__)
         self._stop = False
         # self.hourDuration = 60 * 60 # in seconds`
         self.hourDuration = 60 # in seconds`
@@ -25,12 +25,12 @@ class HelloSensor(Sensor):
 
             self._logger.debug("HelloSensor dispatching trigger...")
 
-            count = self._sensor_service.get_value("learnst2.count") or 0
+            count = self.sensor_service.get_value("learnst2.count") or 0
             payload = {"greetings": "Yo, StackStorm!", "api_key": config['api_key'], "location": "Seattle", "count": int(count) + 1}
 
-            self._sensor_service.dispatch(trigger="learnst2.hello_sensor_trigger", payload=payload)
+            self.sensor_service.dispatch(trigger="learnst2.hello_sensor_trigger", payload=payload)
 
-            self._sensor_service.set_value("learnst2.count", payload["count"])
+            self.sensor_service.set_value("learnst2.count", payload["count"])
             eventlet.sleep(self.hourDuration)
 
     def cleanup(self):
