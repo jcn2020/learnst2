@@ -8,5 +8,5 @@ resource_ref: testconc.sayhello
 
 policy_type: action.concurrency
 parameters: 
-  action: cancel
+  action: delay
   threshold: 1
