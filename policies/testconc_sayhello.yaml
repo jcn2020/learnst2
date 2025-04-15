@@ -9,4 +9,4 @@ resource_ref: testconc.sayhello
 policy_type: action.concurrency
 parameters: 
   action: delay
-  threshold: 1
+  threshold: 2
