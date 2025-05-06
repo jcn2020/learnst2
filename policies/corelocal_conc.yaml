@@ -1,0 +1,11 @@
+---
+name: corelocal.concurrency
+pack: learnst2 
+description: "setup policy for max run" 
+enabled: true  
+
+resource_ref: core.local
+policy_type: action.concurrency 
+parameters: 
+  action: delay  
+  threshold: 2
