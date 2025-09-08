@@ -16,6 +16,7 @@ tasks:
     action: core.local
     input: 
       cmd: "echo array = <% ctx().my_array %>"
+    next: print_object
   
   print_object:
     action: core.local
