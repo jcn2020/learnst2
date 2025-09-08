@@ -37,4 +37,12 @@ parameters:
       key3: value3
       key4: value4
       key5: value5
+      obj1: 
+        subkey1: subvalue1
+        subkey2: subvalue2
+        subkey3: subvalue3
+      list1:
+        - listvalue1
+        - listvalue2
+        - listvalue3
     description: my object parameter
