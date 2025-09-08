@@ -1,0 +1,40 @@
+---
+name: meta1_object
+# pack: learnst2
+description: explor arrays and objects
+enabled: true
+runner_type: "orquesta"
+entry_point: workflows/meta1_object/run_meta1_object.yaml 
+
+parameters:
+  my_array:
+    type: "array"
+    default: 
+      - one
+      - two
+      - three
+      - four
+      - five
+      - six
+      - seven
+      - eight
+      - nine
+      - ten
+      - eleven
+      - twelve
+      - thirteen
+      - fourteen
+      - fifteen
+      - sixteen
+      - seventeen
+    description: my array parameter
+
+  my_object:
+    type: "object"
+    default: 
+      key1: value1
+      key2: value2
+      key3: value3
+      key4: value4
+      key5: value5
+    description: my object parameter

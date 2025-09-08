@@ -1,0 +1,23 @@
+---
+version: 1.0
+description: manipulate arrays and objects
+input: 
+  - my_array
+  - my_object
+
+vars:
+  - temp: nil 
+
+output:
+  - result: <% ctx().my_array %>
+
+tasks: 
+  print_array:
+    action: core.local
+    input: 
+      cmd: "echo array = <% ctx().my_array %>"
+  
+  print_object:
+    action: core.local
+    input: 
+      cmd: "echo object = <% ctx().my_object %>"
