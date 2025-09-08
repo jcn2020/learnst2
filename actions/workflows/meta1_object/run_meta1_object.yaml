@@ -35,10 +35,10 @@ tasks:
 
   loop_array:
     action: core.local
-    #with: 
-    #  - <% ctx().my_array %>
+    with: 
+     <% ctx().my_array %>
     input:
-      #cmd: "echo looping array item = <% item %>"
-      cmd: "echo hello"
+      cmd: "echo looping array item = <% item %>"
+      # cmd: "echo hello"
 
     
