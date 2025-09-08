@@ -29,3 +29,15 @@ tasks:
       # work - cmd: "echo object = <% ctx().my_object %>"
       # work - cmd: "echo object = <% ctx().my_object['obj1'] %> and list1 <% ctx().my_object['list1'][0] %> and <% ctx().my_object['list1'][2] %>"
       cmd: "echo object = <% ctx().my_object.obj1.subkey3.minisubkey3.minikey2 %>"
+    next:
+      - when: <% succeeded() %> 
+        do: loop_array
+
+  loop_array:
+    action: core.local
+    with: 
+      - <% ctx().temp %>
+    input:
+      cmd: "echo looping array item = <% item %>"
+
+    
