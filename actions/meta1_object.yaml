@@ -40,7 +40,12 @@ parameters:
       obj1: 
         subkey1: subvalue1
         subkey2: subvalue2
-        subkey3: subvalue3
+        subkey3: 
+          minisubkey3: 
+            minikey1: minivalue1
+            minikey2: minivalue2
+            minikey3: minivalue3
+            
       list1:
         - listvalue1
         - listvalue2
