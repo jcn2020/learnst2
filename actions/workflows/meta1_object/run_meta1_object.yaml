@@ -8,8 +8,8 @@ input:
 vars:
   - temp: nil 
 
-output:
-  - result: <% ctx().my_array %>
+# output:
+#   - result: <% ctx().my_array %>
 
 tasks: 
   print_array:
