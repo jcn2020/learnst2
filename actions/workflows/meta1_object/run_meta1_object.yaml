@@ -15,7 +15,8 @@ tasks:
   print_array:
     action: core.local
     input: 
-      cmd: "echo array = <% ctx().my_array %>"
+      # work - cmd: "echo array = <% ctx().my_array %>"
+      cmd: "echo array = <% ctx().my_array[0] ctx().my_array[2] %>"
     next: 
       - when: <% succeeded() %> 
         publish:
@@ -25,4 +26,5 @@ tasks:
   print_object:
     action: core.local
     input: 
-      cmd: "echo object = <% ctx().my_object %>"
+      # work - cmd: "echo object = <% ctx().my_object %>"
+      cmd: "echo object = <% ctx().my_object['key2'] %>"
