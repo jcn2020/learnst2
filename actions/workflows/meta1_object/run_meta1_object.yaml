@@ -36,7 +36,7 @@ tasks:
   loop_array:
     action: core.local
     with: 
-      - <% ctx().temp %>
+      - <% ctx().my_array %>
     input:
       cmd: "echo looping array item = <% item %>"
 
