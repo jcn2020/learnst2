@@ -27,4 +27,5 @@ tasks:
     action: core.local
     input: 
       # work - cmd: "echo object = <% ctx().my_object %>"
-      cmd: "echo object = <% ctx().my_object['obj1'] %> and list1 <% ctx().my_object['list1'][0] %> and <% ctx().my_object['list1'][2] %>"
+      # work - cmd: "echo object = <% ctx().my_object['obj1'] %> and list1 <% ctx().my_object['list1'][0] %> and <% ctx().my_object['list1'][2] %>"
+      cmd: "echo object = <% ctx().my_object.obj1.subkey3.minisubkey3.minikey2 %>"
