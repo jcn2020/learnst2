@@ -8,15 +8,14 @@ input:
 vars:
   - temp: nil 
 
-# output:
-#   - result: <% ctx().my_array %>
+output:
+  - result: <% ctx().my_array %>
 
 tasks: 
   print_array:
     action: core.local
     input: 
-      #cmd: "echo array = <% ctx().my_array %>"
-      cmd: "echo array = "
+      cmd: "echo array = <% ctx().my_array %>"
     next: 
       - when: <% succeeded() %> 
         publish:
