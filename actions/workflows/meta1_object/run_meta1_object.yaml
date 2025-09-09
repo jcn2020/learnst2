@@ -38,7 +38,7 @@ tasks:
     with: 
      <% ctx().my_array %>
     input:
-      cmd: "echo looping array item = <% item %>"
+      cmd: "echo looping array item = <% ctx().item %>"
       # cmd: "echo hello"
 
     
